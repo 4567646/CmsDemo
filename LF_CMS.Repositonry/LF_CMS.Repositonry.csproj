@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>LF_CMS.Repositonry</AssemblyName>
+    <RootNamespace>LF_CMS.Repositonry</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LF_CMS.Core\LF_CMS.Core.csproj" />
+    <ProjectReference Include="..\LF_CMS.Models\LF_CMS.Models.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,11 @@
+F:\Code\.NET Core\LF_CMS\LF_CMS.Core\bin\Debug\netcoreapp2.2\LF_CMS.Core.deps.json
+F:\Code\.NET Core\LF_CMS\LF_CMS.Core\bin\Debug\netcoreapp2.2\LF_CMS.Core.dll
+F:\Code\.NET Core\LF_CMS\LF_CMS.Core\bin\Debug\netcoreapp2.2\LF_CMS.Core.pdb
+F:\Code\.NET Core\LF_CMS\LF_CMS.Core\bin\Debug\netcoreapp2.2\Microsoft.Extensions.DependencyModel.dll
+F:\Code\.NET Core\LF_CMS\LF_CMS.Core\obj\Debug\netcoreapp2.2\LF_CMS.Core.csproj.CoreCompileInputs.cache
+F:\Code\.NET Core\LF_CMS\LF_CMS.Core\obj\Debug\netcoreapp2.2\LF_CMS.Core.AssemblyInfoInputs.cache
+F:\Code\.NET Core\LF_CMS\LF_CMS.Core\obj\Debug\netcoreapp2.2\LF_CMS.Core.AssemblyInfo.cs
+F:\Code\.NET Core\LF_CMS\LF_CMS.Core\obj\Debug\netcoreapp2.2\LF_CMS.Core.csproj.CopyComplete
+F:\Code\.NET Core\LF_CMS\LF_CMS.Core\obj\Debug\netcoreapp2.2\LF_CMS.Core.dll
+F:\Code\.NET Core\LF_CMS\LF_CMS.Core\obj\Debug\netcoreapp2.2\LF_CMS.Core.pdb
+F:\Code\.NET Core\LF_CMS\LF_CMS.Core\obj\Debug\netcoreapp2.2\LF_CMS.Core.csprojAssemblyReference.cache
