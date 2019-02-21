@@ -1,9 +1,0 @@
-F:\Code\.NET Core\LF_CMS\LF_CMS.Models\bin\Debug\netcoreapp2.2\LF_CMS.Models.deps.json
-F:\Code\.NET Core\LF_CMS\LF_CMS.Models\bin\Debug\netcoreapp2.2\LF_CMS.Models.dll
-F:\Code\.NET Core\LF_CMS\LF_CMS.Models\bin\Debug\netcoreapp2.2\LF_CMS.Models.pdb
-F:\Code\.NET Core\LF_CMS\LF_CMS.Models\obj\Debug\netcoreapp2.2\LF_CMS.Models.csproj.CoreCompileInputs.cache
-F:\Code\.NET Core\LF_CMS\LF_CMS.Models\obj\Debug\netcoreapp2.2\LF_CMS.Models.AssemblyInfoInputs.cache
-F:\Code\.NET Core\LF_CMS\LF_CMS.Models\obj\Debug\netcoreapp2.2\LF_CMS.Models.AssemblyInfo.cs
-F:\Code\.NET Core\LF_CMS\LF_CMS.Models\obj\Debug\netcoreapp2.2\LF_CMS.Models.dll
-F:\Code\.NET Core\LF_CMS\LF_CMS.Models\obj\Debug\netcoreapp2.2\LF_CMS.Models.pdb
-F:\Code\.NET Core\LF_CMS\LF_CMS.Models\obj\Debug\netcoreapp2.2\LF_CMS.Models.csprojAssemblyReference.cache
