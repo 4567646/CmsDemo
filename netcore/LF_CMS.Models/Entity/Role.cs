@@ -1,13 +1,13 @@
 /**
 *┌──────────────────────────────────────────────────────────────┐
-*│　描    述：操作日志                                                    
-*│　作    者：廖峰                                              
+*│　描    述：角色表                                                    
+*│　作    者：liaofeng                                              
 *│　版    本：1.0   模板代码自动生成                                              
-*│　创建时间：2019-02-17 17:16:12                            
+*│　创建时间：2019-02-24 11:20:51                            
 *└──────────────────────────────────────────────────────────────┘
 *┌──────────────────────────────────────────────────────────────┐
-*│　命名空间: LF_CMS.Models.Entity                                  
-*│　类    名：ManagerLog                                     
+*│　命名空间: LF_CMS.Models                                  
+*│　类    名：Role                                     
 *└──────────────────────────────────────────────────────────────┘
 */
 using System;
@@ -17,12 +17,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace LF_CMS.Models.Entity
 {
 	/// <summary>
-	/// 廖峰
-	/// 2019-02-17 17:16:12
-	/// 操作日志
+	/// liaofeng
+	/// 2019-02-24 11:20:51
+	/// 角色表
 	/// </summary>
-	[Table("ManagerLog")]
-	public class ManagerLog
+	[Table("Role")]
+	public class Role
 	{
 		/// <summary>
 		///  
@@ -31,42 +31,37 @@ namespace LF_CMS.Models.Entity
 		public Int32 Id {get;set;}
 
 		/// <summary>
-		/// 操作类型
-		/// </summary>
-		[MaxLength(32)]
-		public String ActionType {get;set;}
-
-		/// <summary>
-		/// 主键
+		/// 角色名称
 		/// </summary>
 		[Required]
-		[MaxLength(10)]
-		public Int32 AddManageId {get;set;}
-
-		/// <summary>
-		/// 操作人名称
-		/// </summary>
-		[MaxLength(64)]
-		public String AddManagerNickName {get;set;}
-
-		/// <summary>
-		/// 操作时间
-		/// </summary>
-		[Required]
-		[MaxLength(23)]
-		public DateTime AddTime {get;set;}
-
-		/// <summary>
-		/// 操作IP
-		/// </summary>
-		[MaxLength(64)]
-		public String AddIp {get;set;}
+		[MaxLength(12)]
+		public String Name {get;set;}
 
 		/// <summary>
 		/// 备注
 		/// </summary>
-		[MaxLength(256)]
+		[MaxLength(128)]
 		public String Remark {get;set;}
+
+		/// <summary>
+		/// 是否删除 0-否 1-是
+		/// </summary>
+		[Required]
+		[MaxLength(1)]
+		public Boolean IsDelete {get;set;}
+
+		/// <summary>
+		///  
+		/// </summary>
+		[MaxLength(23)]
+		public DateTime? UpdateDate {get;set;}
+
+		/// <summary>
+		///  
+		/// </summary>
+		[Required]
+		[MaxLength(23)]
+		public DateTime CreateDate {get;set;}
 
 
 	}

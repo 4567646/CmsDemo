@@ -11,11 +11,7 @@ namespace LF_CMS.Manage.Controllers
 {
     public class MenuController : Controller
     {
-        private readonly IMenuService _menuService;
-        public MenuController(IMenuService menuService)
-        {
-
-        }
+       
         // GET: /<controller>/
         public IActionResult Index()
         {

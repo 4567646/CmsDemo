@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using AutoMapper;
+using LF.CMS.Api.AutoMapperModule;
+using LF.CMS.Api.Dto.Permission;
 using LF_CMS.Core.Dependency;
 using LF_CMS.Core.Options;
+using LF_CMS.Models.Entity;
 using LF_CMS.Repository;
 using LF_CMS.Services;
 using Microsoft.AspNetCore.Builder;
@@ -34,17 +39,27 @@ namespace LF.CMS.Api
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.Configure<DbOption>(Configuration.GetSection("DbOpion"));
-            
+
             //services.Replace(ServiceDescriptor.Transient<IControllerActivator, ServiceBasedControllerActivator>());
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            #region AutoMapper
+
+            //配置automapper
+            //var config = new MapperConfiguration(cfg =>
+            //{
+            //    cfg.SourceMemberNamingConvention = new LowerUnderscoreNamingConvention();
+            //    cfg.DestinationMemberNamingConvention = new PascalCaseNamingConvention();
+            //    //cfg.CreateMap<Permission, PermissionDto>();
+            //    //cfg.AddProfile<PermissionProfile>();
+            //});
+            Mapper.Initialize(cfg => cfg.AddProfiles(typeof(PermissionProfile)));
+
+            services.AddMvc();
+            #endregion
+
             #region AutoFace
             return IocManager.Instance.Initialize(services);
-            //var builder = new ContainerBuilder();
-            //builder.Populate(services);
-            //builder.RegisterAssemblyTypes(typeof(Startup).Assembly).AsImplementedInterfaces();
-            //var Container = builder.Build();
-            //return new AutofacServiceProvider(Container);
             #endregion
         }
 

@@ -1,13 +1,13 @@
 /**
 *┌──────────────────────────────────────────────────────────────┐
-*│　描    述：文章分类                                                    
-*│　作    者：廖峰                                              
+*│　描    述：用户表                                                    
+*│　作    者：liaofeng                                              
 *│　版    本：1.0   模板代码自动生成                                              
-*│　创建时间：2019-02-17 17:16:12                            
+*│　创建时间：2019-02-24 11:20:51                            
 *└──────────────────────────────────────────────────────────────┘
 *┌──────────────────────────────────────────────────────────────┐
-*│　命名空间: LF_CMS.Models.Entity                                  
-*│　类    名：ArticleCategory                                     
+*│　命名空间: LF_CMS.Models                                  
+*│　类    名：Admin                                     
 *└──────────────────────────────────────────────────────────────┘
 */
 using System;
@@ -17,82 +17,108 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace LF_CMS.Models.Entity
 {
 	/// <summary>
-	/// 廖峰
-	/// 2019-02-17 17:16:12
-	/// 文章分类
+	/// liaofeng
+	/// 2019-02-24 11:20:51
+	/// 用户表
 	/// </summary>
-	[Table("ArticleCategory")]
-	public class ArticleCategory
+	[Table("Admin")]
+	public class Admin
 	{
 		/// <summary>
-		/// 主键
+		///  
 		/// </summary>
 		[Key]
 		public Int32 Id {get;set;}
 
 		/// <summary>
-		/// 分类标题
+		/// 登录用户名
 		/// </summary>
-		[Required]
-		[MaxLength(128)]
-		public String Title {get;set;}
+		[MaxLength(32)]
+		public String UserName {get;set;}
 
 		/// <summary>
-		/// 父分类ID
+		/// 用户姓名
 		/// </summary>
-		[Required]
-		[MaxLength(10)]
-		public Int32 ParentId {get;set;}
+		[MaxLength(64)]
+		public String Name {get;set;}
 
 		/// <summary>
-		/// 类别ID列表(逗号分隔开)
+		///  
 		/// </summary>
-		[MaxLength(128)]
-		public String ClassList {get;set;}
+		[MaxLength(32)]
+		public String PassWord {get;set;}
 
 		/// <summary>
-		/// 类别深度
-		/// </summary>
-		[MaxLength(10)]
-		public Int32? ClassLayer {get;set;}
-
-		/// <summary>
-		/// 排序
-		/// </summary>
-		[Required]
-		[MaxLength(10)]
-		public Int32 Sort {get;set;}
-
-		/// <summary>
-		/// 分类图标
+		///  
 		/// </summary>
 		[MaxLength(128)]
-		public String ImageUrl {get;set;}
+		public String Email {get;set;}
 
 		/// <summary>
-		/// 分类SEO标题
+		/// 手机号
 		/// </summary>
-		[MaxLength(128)]
-		public String SeoTitle {get;set;}
+		[MaxLength(12)]
+		public String Mobile {get;set;}
 
 		/// <summary>
-		/// 分类SEO关键字
+		///  
+		/// </summary>
+		[MaxLength(32)]
+		public String RoleId {get;set;}
+
+		/// <summary>
+		/// 权限ID ,1,2,3,4,5,6,
 		/// </summary>
 		[MaxLength(256)]
-		public String SeoKeywords {get;set;}
+		public String PermissionID {get;set;}
 
 		/// <summary>
-		/// 分类SEO描述
+		/// 头像url
 		/// </summary>
-		[MaxLength(512)]
-		public String SeoDescription {get;set;}
+		[MaxLength(128)]
+		public String Avatar {get;set;}
+
+		/// <summary>
+		///  
+		/// </summary>
+		[MaxLength(256)]
+		public String Remark {get;set;}
+
+		/// <summary>
+		///  
+		/// </summary>
+		[MaxLength(10)]
+		public Int32? LoginCount {get;set;}
 
 		/// <summary>
 		/// 是否删除
 		/// </summary>
-		[Required]
 		[MaxLength(1)]
-		public Boolean IsDeleted {get;set;}
+		public Boolean? IsDelete {get;set;}
+
+		/// <summary>
+		///  
+		/// </summary>
+		[MaxLength(1)]
+		public Boolean? IsLock {get;set;}
+
+		/// <summary>
+		///  
+		/// </summary>
+		[MaxLength(32)]
+		public String LoginLastIp {get;set;}
+
+		/// <summary>
+		///  
+		/// </summary>
+		[MaxLength(23)]
+		public DateTime? UpdateDate {get;set;}
+
+		/// <summary>
+		///  
+		/// </summary>
+		[MaxLength(23)]
+		public DateTime? CreateDate {get;set;}
 
 
 	}

@@ -1,13 +1,13 @@
 /**
 *┌──────────────────────────────────────────────────────────────┐
-*│　描    述：后台管理员角色                                                    
-*│　作    者：廖峰                                              
+*│　描    述：权限表                                                    
+*│　作    者：liaofeng                                              
 *│　版    本：1.0   模板代码自动生成                                              
-*│　创建时间：2019-02-17 17:16:12                            
+*│　创建时间：2019-02-24 11:20:51                            
 *└──────────────────────────────────────────────────────────────┘
 *┌──────────────────────────────────────────────────────────────┐
-*│　命名空间: LF_CMS.Models.Entity                                  
-*│　类    名：ManagerRole                                     
+*│　命名空间: LF_CMS.Models                                  
+*│　类    名：Permission                                     
 *└──────────────────────────────────────────────────────────────┘
 */
 using System;
@@ -17,78 +17,90 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace LF_CMS.Models.Entity
 {
 	/// <summary>
-	/// 廖峰
-	/// 2019-02-17 17:16:12
-	/// 后台管理员角色
+	/// liaofeng
+	/// 2019-02-24 11:20:51
+	/// 权限表
 	/// </summary>
-	[Table("ManagerRole")]
-	public class ManagerRole
+	[Table("Permission")]
+	public class Permission
 	{
 		/// <summary>
-		/// 主键
+		///  
 		/// </summary>
 		[Key]
 		public Int32 Id {get;set;}
 
 		/// <summary>
-		/// 角色名称
+		/// 权限名称：页面名称，模块名称，按钮名称等。
 		/// </summary>
-		[Required]
-		[MaxLength(64)]
-		public String RoleName {get;set;}
+		[MaxLength(32)]
+		public String Name {get;set;}
 
 		/// <summary>
-		/// 角色类型1超管2系管
+		///  
 		/// </summary>
-		[Required]
 		[MaxLength(10)]
-		public Int32 RoleType {get;set;}
+		public Int32? ParentId {get;set;}
 
 		/// <summary>
-		/// 是否系统默认
+		///  
 		/// </summary>
-		[Required]
-		[MaxLength(1)]
-		public Boolean IsSystem {get;set;}
+		[MaxLength(128)]
+		public String IconUrl {get;set;}
+
+		/// <summary>
+		///  
+		/// </summary>
+		[MaxLength(128)]
+		public String LinkUrl {get;set;}
+
+		/// <summary>
+		///  
+		/// </summary>
+		[MaxLength(10)]
+		public Int32? Sort {get;set;}
+
+		/// <summary>
+		/// 权限类型：1:模块,2:菜单,3:按钮
+		/// </summary>
+		[MaxLength(10)]
+		public Int32? Type {get;set;}
 
 		/// <summary>
 		/// 添加人
 		/// </summary>
-		[Required]
 		[MaxLength(10)]
-		public Int32 AddManagerId {get;set;}
-
-		/// <summary>
-		/// 添加时间
-		/// </summary>
-		[Required]
-		[MaxLength(23)]
-		public DateTime AddTime {get;set;}
+		public Int32? AddManagerId {get;set;}
 
 		/// <summary>
 		/// 修改人
 		/// </summary>
 		[MaxLength(10)]
-		public Int32? ModifyManagerId {get;set;}
+		public Int32? UpdateManagerId {get;set;}
 
 		/// <summary>
-		/// 修改时间
+		///  
+		/// </summary>
+		[MaxLength(1)]
+		public Boolean? IsDisplay {get;set;}
+
+		/// <summary>
+		///  
+		/// </summary>
+		[MaxLength(1)]
+		public Boolean? IsDelete {get;set;}
+
+		/// <summary>
+		///  
 		/// </summary>
 		[MaxLength(23)]
-		public DateTime? ModifyTime {get;set;}
+		public DateTime? UpdateTime {get;set;}
 
 		/// <summary>
-		/// 是否删除
+		///  
 		/// </summary>
-		[Required]
-		[MaxLength(1)]
-		public Boolean IsDelete {get;set;}
-
-		/// <summary>
-		/// 备注
-		/// </summary>
-		[MaxLength(128)]
-		public String Remark {get;set;}
+		[MaxLength(23)]
+		public DateTime? CreateTime {get;set;}
 
 
 	}

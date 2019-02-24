@@ -1,12 +1,12 @@
 /**
 *┌──────────────────────────────────────────────────────────────┐
 *│　描    述：角色权限表                                                    
-*│　作    者：廖峰                                              
+*│　作    者：liaofeng                                              
 *│　版    本：1.0   模板代码自动生成                                              
-*│　创建时间：2019-02-17 17:16:12                            
+*│　创建时间：2019-02-24 11:20:51                            
 *└──────────────────────────────────────────────────────────────┘
 *┌──────────────────────────────────────────────────────────────┐
-*│　命名空间: LF_CMS.Models.Entity                                  
+*│　命名空间: LF_CMS.Models                                  
 *│　类    名：RolePermission                                     
 *└──────────────────────────────────────────────────────────────┘
 */
@@ -17,38 +17,42 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace LF_CMS.Models.Entity
 {
 	/// <summary>
-	/// 廖峰
-	/// 2019-02-17 17:16:12
+	/// liaofeng
+	/// 2019-02-24 11:20:51
 	/// 角色权限表
 	/// </summary>
 	[Table("RolePermission")]
 	public class RolePermission
 	{
 		/// <summary>
-		/// 主键
+		///  
 		/// </summary>
 		[Key]
 		public Int32 Id {get;set;}
 
 		/// <summary>
-		/// 角色主键
+		///  
 		/// </summary>
-		[Required]
 		[MaxLength(10)]
-		public Int32 RoleId {get;set;}
+		public Int32? RoleId {get;set;}
 
 		/// <summary>
-		/// 菜单主键
+		/// 权限ID  ,1,2,3,4,5,6,
 		/// </summary>
-		[Required]
 		[MaxLength(10)]
-		public Int32 MenuId {get;set;}
+		public Int32? PermissionId {get;set;}
 
 		/// <summary>
-		/// 操作类型（功能权限）
+		///  
 		/// </summary>
-		[MaxLength(128)]
-		public String Permission {get;set;}
+		[MaxLength(23)]
+		public DateTime? UpdateDate {get;set;}
+
+		/// <summary>
+		///  
+		/// </summary>
+		[MaxLength(23)]
+		public DateTime? CreateDate {get;set;}
 
 
 	}

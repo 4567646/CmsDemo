@@ -1,20 +1,25 @@
-using LF_CMS.Core.Dependency;
+﻿using LF_CMS.Core.Dependency;
 using LF_CMS.Core.Options;
+using LF_CMS.Services;
+using LF_CMS.Services.Permission;
 using LF_CMS.Test.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Xunit;
 
-namespace LF_CMS.ApiTest
+namespace LF_CMS.ServicesTest
 {
-    public class UnitTest1 : TestBase
+
+    public class PermissionServiceTest : TestBase
     {
-        //private readonly IMenuService _menuService;
-        public UnitTest1()
+        private readonly IPermissionService _menuService;
+        public PermissionServiceTest()
         {
-           // _menuService = _serviceProvider.GetService<IMenuService>();
+            _menuService = _serviceProvider.GetService<IPermissionService>();
 
         }
         [Fact]
@@ -25,6 +30,8 @@ namespace LF_CMS.ApiTest
             //Assert.True(list.Count() > 0);
 
         }
+
+
 
 
     }

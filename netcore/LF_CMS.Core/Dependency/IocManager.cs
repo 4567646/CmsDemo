@@ -67,7 +67,7 @@ namespace LF_CMS.Core.Dependency
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope()
                 .PropertiesAutowired();
-            
+
             //.EnableInterfaceInterceptors();注册基于接口的拦截器（AOP）
 
             foreach (Type type in arrDependencyType)
@@ -98,7 +98,6 @@ namespace LF_CMS.Core.Dependency
                         .PropertiesAutowired();
                 }
             }
-
             builder.Populate(services);
             _container = builder.Build();
             return new AutofacServiceProvider(_container);

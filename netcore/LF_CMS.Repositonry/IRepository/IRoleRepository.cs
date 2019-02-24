@@ -1,13 +1,13 @@
-﻿/**
+/**
 *┌──────────────────────────────────────────────────────────────┐
-*│　描    述：{Comment}                                                    
-*│　作    者：{Author}                                              
+*│　描    述：角色表                                                    
+*│　作    者：liaofeng                                              
 *│　版    本：1.0   模板代码自动生成                                              
-*│　创建时间：{GeneratorTime}                           
+*│　创建时间：2019-02-24 11:20:51                           
 *└──────────────────────────────────────────────────────────────┘
 *┌──────────────────────────────────────────────────────────────┐
-*│　命名空间： {IRepositoryNamespace}                                   
-*│　接口名称： I{ModelName}Repository                                      
+*│　命名空间： LF_CMS.Repository                                   
+*│　接口名称： IRoleRepository                                      
 *└──────────────────────────────────────────────────────────────┘
 */
 using LF_CMS.Models.Entity;
@@ -15,9 +15,9 @@ using System;
 using System.Threading.Tasks;
 using LF_CMS.Core.Repository;
 
-namespace {IRepositoryNamespace}.{ModelName}
+namespace LF_CMS.Repository
 {
-    public interface I{ModelName}Repository : IBaseRepository<{ModelName}, {KeyTypeName}>
+    public interface IRoleRepository : IBaseRepository<Role, Int32>
     {
 	     /// <summary>
         /// 逻辑删除返回影响的行数
