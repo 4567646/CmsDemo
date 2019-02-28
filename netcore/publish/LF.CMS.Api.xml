@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LF.CMS.Api</name>
+    </assembly>
+    <members>
+        <member name="M:LF.CMS.Api.Controllers.AdminController.Login(LF_CMS.Models.Dto.Admin.AdminLoginInput)">
+            <summary>
+            登录
+            </summary>
+            <param name="adminLoginInput"></param>
+        </member>
+        <member name="T:LF.CMS.Api.PermissionController">
+            <summary>
+            权限
+            </summary>
+        </member>
+        <member name="M:LF.CMS.Api.PermissionController.Get(System.Int32)">
+            <summary>
+            获取权限列表
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

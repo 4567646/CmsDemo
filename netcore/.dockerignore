@@ -4,6 +4,13 @@
 .gitignore
 .vs
 .vscode
+.publish
+
+
+# 忽略publish文件和publish目录
+#publish
+
+
 */bin
 */obj
 **/.toolstarget
