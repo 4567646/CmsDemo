@@ -10,13 +10,14 @@
 *│　接口名称： IRolePermissionRepository                                      
 *└──────────────────────────────────────────────────────────────┘
 */
+using LF_CMS.Core.Dependency;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace LF_CMS.Services
 {
-    public interface IRolePermissionService
+    public interface IRolePermissionService : ISingletonDependency
     {
     }
 }

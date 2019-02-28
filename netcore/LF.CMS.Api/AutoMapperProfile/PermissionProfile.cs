@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using LF.CMS.Api.Dto.Permission;
+using LF_CMS.Models.Dto.Permission;
 using LF_CMS.Models.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LF.CMS.Api.AutoMapperModule
+namespace LF.CMS.Api.AutoMapperProfile
 {
     public class PermissionProfile: Profile
     {

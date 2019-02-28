@@ -14,10 +14,11 @@ using LF_CMS.Models.Entity;
 using System;
 using System.Threading.Tasks;
 using LF_CMS.Core.Repository;
+using LF_CMS.Core.Dependency;
 
 namespace {IRepositoryNamespace}.{ModelName}
 {
-    public interface I{ModelName}Repository : IBaseRepository<{ModelName}, {KeyTypeName}>
+    public interface I{ModelName}Repository : IBaseRepository<{ModelName}, {KeyTypeName}>, ISingletonDependency
     {
 	     /// <summary>
         /// 逻辑删除返回影响的行数

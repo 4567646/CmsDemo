@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using LF.CMS.Api.Dto.Permission;
-using LF_CMS.Services.Permission;
+using LF_CMS.Models.Dto.Permission;
+using LF_CMS.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -8,6 +8,9 @@ using System.Collections.Generic;
 
 namespace LF.CMS.Api
 {
+    /// <summary>
+    /// 权限
+    /// </summary>
     [Route("api/[controller]")]
     public class PermissionController : Controller
     {
@@ -16,9 +19,13 @@ namespace LF.CMS.Api
         {
             _permissionService = permissionService;
         }
-        // GET: api/<controller>
+        // GET: api/<controller>/{id}
+        /// <summary>
+        /// 获取权限列表
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(int id)
         {
             var list = _permissionService.GetPermissionAll();
             var result = Mapper.Map<List<PermissionDto>>(list);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LF.CMS.Api.Dto.Permission
+namespace LF_CMS.Models.Dto.Permission
 {
     public class PermissionDto
     {

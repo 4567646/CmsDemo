@@ -15,12 +15,13 @@ using System;
 using System.Threading.Tasks;
 using LF_CMS.Core.Repository;
 using LF_CMS.Models;
+using LF_CMS.Core.Dependency;
 
 namespace LF_CMS.Repository
 {
-    public interface IAdminRepository : IBaseRepository<Admin, Int32>
+    public interface IAdminRepository : IBaseRepository<Admin, Int32>, ISingletonDependency
     {
-	     /// <summary>
+        /// <summary>
         /// 逻辑删除返回影响的行数
         /// </summary>
         /// <param name="ids">需要删除的主键数组</param>
@@ -32,5 +33,7 @@ namespace LF_CMS.Repository
         /// <param name="ids">需要删除的主键数组</param>
         /// <returns>影响的行数</returns>
         Task<Int32> DeleteLogicalAsync(Int32[] ids);
+        Admin GetAdminByUserName(string userName);
+        Admin GetAdminById(int id);
     }
 }

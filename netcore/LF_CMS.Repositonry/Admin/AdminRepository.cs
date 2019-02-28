@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using LF_CMS.Core.Repository;
 using LF_CMS.Models.Entity;
 using LF_CMS.Models;
+using System.Linq;
 
 namespace LF_CMS.Repository
 {
@@ -47,5 +48,20 @@ namespace LF_CMS.Repository
             });
         }
 
+        public Admin GetAdminById(int id)
+        {
+            string sql = @"SELECT Id, UserName, Name, PassWord, Email, Mobile, RoleId, PermissionID, Avatar, Remark, LoginCount, IsDelete, IsLock, LoginLastIp, UpdateDate, CreateDate
+                           FROM dbo.Admin where id =@id";
+            //return _dbConnection.Get<Admin>(id);
+            return _dbConnection.QueryFirst<Admin>(sql, new { id = id });
+
+        }
+
+        public Admin GetAdminByUserName(string userName)
+        {
+            string sql = @"SELECT Id, UserName, Name, PassWord, Email, Mobile, RoleId, PermissionID, Avatar, Remark, LoginCount, IsDelete, IsLock, LoginLastIp, UpdateDate, CreateDate
+                           FROM dbo.Admin where UserName =@userName";
+            return _dbConnection.QueryFirstOrDefault<Admin>(sql, new { UserName = userName });
+        }
     }
 }

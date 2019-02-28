@@ -10,13 +10,18 @@
 *│　接口名称： IAdminRepository                                      
 *└──────────────────────────────────────────────────────────────┘
 */
+using LF_CMS.Core.Dependency;
+using LF_CMS.Models.Dto.Admin;
+using LF_CMS.Models.Entity;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LF_CMS.Services.Admin
+namespace LF_CMS.Services
 {
-    public interface IAdminService
+    public interface IAdminService : ISingletonDependency
     {
+        Admin GetAdminById(int id);
+        Admin GetAdminByUserName(string userName);
     }
 }

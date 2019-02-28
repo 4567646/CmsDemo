@@ -20,8 +20,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using Dapper;
 using Microsoft.Extensions.Options;
+using Dapper;
 
 namespace LF_CMS.Core.Repository
 {
@@ -72,6 +72,7 @@ namespace LF_CMS.Core.Repository
         {
             return _dbConnection.RecordCount<T>(conditions, parameters);
         }
+        
         #endregion
 
         #region 异步
@@ -166,6 +167,7 @@ namespace LF_CMS.Core.Repository
             // TODO: 如果在以上内容中替代了终结器，则取消注释以下行。
             // GC.SuppressFinalize(this);
         }
+
         #endregion
     }
 }

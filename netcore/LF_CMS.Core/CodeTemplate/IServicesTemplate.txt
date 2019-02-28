@@ -14,10 +14,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using LF_CMS.Models.Entity;
+using LF_CMS.Core.Dependency;
 
 namespace {IServicesNamespace}.{ModelName}
 {
-    public interface I{ModelName}Service
+    public interface I{ModelName}Service: ISingletonDependency
     {
     }
 }

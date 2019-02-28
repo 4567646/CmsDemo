@@ -24,15 +24,22 @@
     <PackageReference Include="Autofac" Version="4.9.1" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.3.1" />
     <PackageReference Include="Dapper" Version="1.50.7" />
-    <PackageReference Include="Dapper.SimpleCRUD" Version="2.0.1" />
+    <PackageReference Include="Dapper.SimpleCRUD" Version="2.1.0" />
     <PackageReference Include="JetBrains.Annotations" Version="2018.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="MySql.Data" Version="8.0.15" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LF_CMS.Models\LF_CMS.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Microsoft.AspNetCore.Http.Abstractions">
       <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.http.abstractions\2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc.Core">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.mvc.core\2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Mvc.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.DependencyModel">
       <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.dependencymodel\2.1.0\lib\netstandard1.6\Microsoft.Extensions.DependencyModel.dll</HintPath>

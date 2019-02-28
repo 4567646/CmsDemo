@@ -10,13 +10,14 @@
 *│　接口名称： IRoleRepository                                      
 *└──────────────────────────────────────────────────────────────┘
 */
+using LF_CMS.Core.Dependency;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace LF_CMS.Services
 {
-    public interface IRoleService
+    public interface IRoleService : ISingletonDependency
     {
     }
 }

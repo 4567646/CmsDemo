@@ -16,7 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LF_CMS.Services.Permission
+namespace LF_CMS.Services
 {
     public interface IPermissionService : ISingletonDependency
     {

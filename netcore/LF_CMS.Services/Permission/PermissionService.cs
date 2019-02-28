@@ -11,8 +11,8 @@
 *└──────────────────────────────────────────────────────────────┘
 */
 using LF_CMS.Models.Dto;
+using LF_CMS.Models.Entity;
 using LF_CMS.Repository;
-using LF_CMS.Services.Permission;
 using System.Collections.Generic;
 
 namespace LF_CMS.Services
@@ -26,7 +26,7 @@ namespace LF_CMS.Services
             _repository = repository;
         }
 
-        public IEnumerable<LF_CMS.Models.Entity.Permission> GetPermissionAll()
+        public IEnumerable<Permission> GetPermissionAll()
         {
             return _repository.GetPermissionAll();
         }

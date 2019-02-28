@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -104,6 +105,7 @@ namespace LF_CMS.Core.Repository
         /// <param name="parameters"></param>
         /// <returns></returns>
         int RecordCount(string conditions = "", object parameters = null);
+        
         #endregion
         #region 异步
         /// <summary>

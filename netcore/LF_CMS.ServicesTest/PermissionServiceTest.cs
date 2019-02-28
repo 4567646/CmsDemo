@@ -1,7 +1,6 @@
 ﻿using LF_CMS.Core.Dependency;
 using LF_CMS.Core.Options;
 using LF_CMS.Services;
-using LF_CMS.Services.Permission;
 using LF_CMS.Test.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
