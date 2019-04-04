@@ -2,10 +2,15 @@
 using Autofac.Core;
 using Autofac.Core.Lifetime;
 using Autofac.Extensions.DependencyInjection;
+using LF_CMS.Core.Options;
+using LF_CMS.Core.Redis;
+using Microsoft.Extensions.Caching.Redis;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyModel;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
@@ -22,6 +27,9 @@ namespace LF_CMS.Core.Dependency
 
         public static IocManager Instance { get { return SingletonInstance; } }
         private static readonly IocManager SingletonInstance = new IocManager();
+        public IocManager()
+        {
+        }
 
         /// <summary>
         /// Ioc容器初始化
@@ -98,6 +106,8 @@ namespace LF_CMS.Core.Dependency
                         .PropertiesAutowired();
                 }
             }
+            
+
             builder.Populate(services);
             _container = builder.Build();
             return new AutofacServiceProvider(_container);

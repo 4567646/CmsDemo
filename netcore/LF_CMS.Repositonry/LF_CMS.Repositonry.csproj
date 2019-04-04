@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <AssemblyName>LF_CMS.Repositonry</AssemblyName>
-    <RootNamespace>LF_CMS.Repositonry</RootNamespace>
+    <AssemblyName>LF_CMS.DapperRepositonry</AssemblyName>
+    <RootNamespace>LF_CMS.DapperRepositonry</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

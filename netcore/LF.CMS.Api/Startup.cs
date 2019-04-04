@@ -11,6 +11,7 @@ using LF.CMS.Api.AutoMapperProfile;
 using LF.CMS.Api.Middleware;
 using LF_CMS.Core.Dependency;
 using LF_CMS.Core.Options;
+using LF_CMS.Core.Redis;
 using LF_CMS.Models.Entity;
 using LF_CMS.Repository;
 using LF_CMS.Services;
@@ -19,6 +20,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.Extensions.Caching.Redis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -42,6 +44,18 @@ namespace LF.CMS.Api
         {
             services.Configure<DbOption>(Configuration.GetSection("DbOpion"));
 
+            //注入Redis缓存
+            //services.AddSingleton(typeof(IRedisCacheService), new RedisCacheService(new RedisCacheOptions()
+            //{
+            //    Configuration = Configuration.GetSection("Cache:ConnectionString").Value,
+            //    InstanceName = Configuration.GetSection("Cache:InstanceName").Value,
+            //}));
+            services.AddDistributedRedisCache(option =>
+            {
+                option.Configuration = Configuration.GetSection("Cache:ConnectionString").Value;
+                option.InstanceName = Configuration.GetSection("Cache:InstanceName").Value;
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             #region AutoMapper
@@ -56,39 +70,15 @@ namespace LF.CMS.Api
             //});
             Mapper.Initialize(cfg => cfg.AddProfiles(typeof(PermissionProfile)));
 
-            services.AddMvc(options=> {
+            services.AddMvc(options =>
+            {
                 options.Filters.Add(typeof(WebApiResultMiddleware));
             });
             #endregion
 
             #region Swagger
             // Register the Swagger generator, defining 1 or more Swagger documents
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info
-                {
-                    Version = "v1",
-                    Title = "ToDo API",
-                    Description = "A simple example ASP.NET Core Web API",
-                    TermsOfService = "None",
-                    Contact = new Contact
-                    {
-                        Name = "Shayne Boyer",
-                        Email = string.Empty,
-                        Url = "https://twitter.com/spboyer"
-                    },
-                    License = new License
-                    {
-                        Name = "Use under LICX",
-                        Url = "https://example.com/license"
-                    }
-                });
-
-                // Set the comments path for the Swagger JSON and UI.
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath);
-            });
+            AddSwaggerGen(services);
             #endregion
 
             #region AutoFace
@@ -122,9 +112,47 @@ namespace LF.CMS.Api
             });
 
 
+
             #endregion
             app.UseHttpsRedirection();
             app.UseMvc();
+        }
+
+        /// <summary>
+        /// swagger配置
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        private Startup AddSwaggerGen(IServiceCollection services)
+        {
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Title = "ToDo API",
+                    Description = "A simple example ASP.NET Core Web API",
+                    TermsOfService = "None",
+                    Contact = new Contact
+                    {
+                        Name = "Shayne Boyer",
+                        Email = string.Empty,
+                        Url = "https://twitter.com/spboyer"
+                    },
+                    License = new License
+                    {
+                        Name = "Use under LICX",
+                        Url = "https://example.com/license"
+                    }
+                });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
+            return this;
         }
     }
 }

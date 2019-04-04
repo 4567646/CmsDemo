@@ -24,8 +24,12 @@ namespace LF.CMS.Api.Controllers
         /// 登录
         /// </summary>
         /// <param name="adminLoginInput"></param>
+        /// <response code="200">返回用户信息</response>
+        /// <response code="400">参数有误</response>
         // POST api/<controller>
         [HttpPost("Login")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public ActionResult<AdminDto> Login([FromBody]AdminLoginInput adminLoginInput)
         {
             var model = _adminService.GetAdminByUserName(adminLoginInput.UserName);
