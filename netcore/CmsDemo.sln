@@ -1,18 +1,21 @@
+
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28729.10
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{CBB5DF61-7938-463A-946E-736F01F82131}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{053DC4D9-35F6-4EC5-A83F-86E47C47E770}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CmsDemo.Repositonry", "CmsDemo.Repositonry\CmsDemo.Repositonry.csproj", "{474C1803-3511-443A-879B-56AE446F6B12}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CmsDemo.Core", "CmsDemo.Core\CmsDemo.Core.csproj", "{8B7919D5-7C24-4640-9F36-11CE03C41F39}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CmsDemo.Models", "CmsDemo.Models\CmsDemo.Models.csproj", "{015B6231-581A-4644-B17B-11A67E559C5A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CmsDemo.WebManage", "CmsDemo.WebManage\CmsDemo.WebManage.csproj", "{34A4B017-285E-48E4-A784-175F12907EB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CmsDemo.Manage", "CmsDemo.Manage\CmsDemo.Manage.csproj", "{34A4B017-285E-48E4-A784-175F12907EB4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CmsDemo.WebApi", "CmsDemo.WebApi\CmsDemo.WebApi.csproj", "{73E2CA53-E4B2-446E-8DF6-2D5DB6511C64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CmsDemo.Api", "CmsDemo.Api\CmsDemo.Api.csproj", "{73E2CA53-E4B2-446E-8DF6-2D5DB6511C64}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CmsDemo.ApiTest", "CmsDemo.ApiTest\CmsDemo.ApiTest.csproj", "{7C5F8E09-3509-4158-ADF5-E2C5754CDF7C}"
 EndProject
@@ -20,9 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CmsDemo.Services", "CmsDemo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CmsDemo.ServicesTest", "CmsDemo.ServicesTest\CmsDemo.ServicesTest.csproj", "{74597272-59C4-400F-9A83-F0735CCE2189}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CmsDemo.EntityFrameworkCore", "CmsDemo.EntityFrameworkCore\CmsDemo.EntityFrameworkCore.csproj", "{AAECA58A-018B-4419-95DC-AF2587ECA537}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CmsDemo.TestBase", "CmsDemo.TestBase\CmsDemo.TestBase.csproj", "{1F629ADF-13A6-4CAA-857F-4AA4779FE859}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CmsDemo.Test.Core", "CmsDemo.Test.Core\CmsDemo.Test.Core.csproj", "{538C54E7-33CC-4297-8D2E-EE117B589D40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +31,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{474C1803-3511-443A-879B-56AE446F6B12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{474C1803-3511-443A-879B-56AE446F6B12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{474C1803-3511-443A-879B-56AE446F6B12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{474C1803-3511-443A-879B-56AE446F6B12}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8B7919D5-7C24-4640-9F36-11CE03C41F39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8B7919D5-7C24-4640-9F36-11CE03C41F39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B7919D5-7C24-4640-9F36-11CE03C41F39}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -58,19 +63,16 @@ Global
 		{74597272-59C4-400F-9A83-F0735CCE2189}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74597272-59C4-400F-9A83-F0735CCE2189}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74597272-59C4-400F-9A83-F0735CCE2189}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AAECA58A-018B-4419-95DC-AF2587ECA537}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AAECA58A-018B-4419-95DC-AF2587ECA537}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AAECA58A-018B-4419-95DC-AF2587ECA537}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AAECA58A-018B-4419-95DC-AF2587ECA537}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1F629ADF-13A6-4CAA-857F-4AA4779FE859}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1F629ADF-13A6-4CAA-857F-4AA4779FE859}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F629ADF-13A6-4CAA-857F-4AA4779FE859}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1F629ADF-13A6-4CAA-857F-4AA4779FE859}.Release|Any CPU.Build.0 = Release|Any CPU
+		{538C54E7-33CC-4297-8D2E-EE117B589D40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{538C54E7-33CC-4297-8D2E-EE117B589D40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{538C54E7-33CC-4297-8D2E-EE117B589D40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{538C54E7-33CC-4297-8D2E-EE117B589D40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{474C1803-3511-443A-879B-56AE446F6B12} = {CBB5DF61-7938-463A-946E-736F01F82131}
 		{8B7919D5-7C24-4640-9F36-11CE03C41F39} = {CBB5DF61-7938-463A-946E-736F01F82131}
 		{015B6231-581A-4644-B17B-11A67E559C5A} = {CBB5DF61-7938-463A-946E-736F01F82131}
 		{34A4B017-285E-48E4-A784-175F12907EB4} = {CBB5DF61-7938-463A-946E-736F01F82131}
@@ -78,8 +80,7 @@ Global
 		{7C5F8E09-3509-4158-ADF5-E2C5754CDF7C} = {053DC4D9-35F6-4EC5-A83F-86E47C47E770}
 		{89E454D6-41D9-4684-96C5-09D8D92BDBC3} = {CBB5DF61-7938-463A-946E-736F01F82131}
 		{74597272-59C4-400F-9A83-F0735CCE2189} = {053DC4D9-35F6-4EC5-A83F-86E47C47E770}
-		{AAECA58A-018B-4419-95DC-AF2587ECA537} = {CBB5DF61-7938-463A-946E-736F01F82131}
-		{1F629ADF-13A6-4CAA-857F-4AA4779FE859} = {053DC4D9-35F6-4EC5-A83F-86E47C47E770}
+		{538C54E7-33CC-4297-8D2E-EE117B589D40} = {053DC4D9-35F6-4EC5-A83F-86E47C47E770}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6F76CB18-7CF2-45E1-BD46-F4A82387F9F3}
