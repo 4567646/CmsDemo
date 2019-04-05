@@ -13,7 +13,7 @@ using System.Text;
 namespace CmsDemo.Core.CodeGenerator
 {
     /// <summary>
-    /// 代码生成器。参考自：LF_CMS
+    /// 代码生成器
     /// <remarks>
     /// 根据数据库表以及表对应的列生成对应的数据库实体
     /// </remarks>
@@ -29,9 +29,9 @@ namespace CmsDemo.Core.CodeGenerator
                 throw new ArgumentNullException(nameof(options));
             _options = options.Value;
             if (string.IsNullOrWhiteSpace(_options.ConnectionString))
-                throw new ArgumentNullException("不指定数据库连接串就生成代码，你想上天吗？");
+                throw new ArgumentNullException("未指定数据库连接字符串？");
             if (string.IsNullOrWhiteSpace(_options.DbType))
-                throw new ArgumentNullException("不指定数据库类型就生成代码，你想逆天吗？");
+                throw new ArgumentNullException("未指定数据库类型？");
             var path = AppDomain.CurrentDomain.BaseDirectory;
             if (string.IsNullOrWhiteSpace(_options.OutputPath))
                 _options.OutputPath = path;
