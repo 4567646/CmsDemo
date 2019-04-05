@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using CmsDemo.Manage.Models;
+using CmsDemo.WebManage.Models;
 
-namespace CmsDemo.Manage.Controllers
+namespace CmsDemo.WebManage.Controllers
 {
     public class HomeController : Controller
     {

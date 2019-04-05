@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
-using CmsDemo.Api.AutoMapperProfile;
-using CmsDemo.Api.Middleware;
+using CmsDemo.WebApi.AutoMapperProfile;
+using CmsDemo.WebApi.Middleware;
 using CmsDemo.Core.Dependency;
 using CmsDemo.Core.Options;
 using CmsDemo.Core.Redis;
@@ -28,7 +28,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace CmsDemo.Api
+namespace CmsDemo.WebApi
 {
     public class Startup
     {

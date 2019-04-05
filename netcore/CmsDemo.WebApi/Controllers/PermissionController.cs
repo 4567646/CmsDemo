@@ -14,7 +14,7 @@ using System.Text;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace CmsDemo.Api
+namespace CmsDemo.WebApi
 {
     /// <summary>
     /// 权限

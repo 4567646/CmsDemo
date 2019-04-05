@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace CmsDemo.Api.Controllers
+namespace CmsDemo.WebApi.Controllers
 {
     [Route("api/[controller]")]
     public class AdminController : Controller

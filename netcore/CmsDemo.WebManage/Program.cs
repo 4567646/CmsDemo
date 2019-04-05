@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace CmsDemo.Manage
+namespace CmsDemo.WebManage
 {
     public class Program
     {

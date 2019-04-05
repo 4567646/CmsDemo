@@ -24,7 +24,6 @@
   <ItemGroup>
     <ProjectReference Include="..\CmsDemo.Core\CmsDemo.Core.csproj" />
     <ProjectReference Include="..\CmsDemo.Models\CmsDemo.Models.csproj" />
-    <ProjectReference Include="..\CmsDemo.Repositonry\CmsDemo.Repositonry.csproj" />
     <ProjectReference Include="..\CmsDemo.Services\CmsDemo.Services.csproj" />
   </ItemGroup>
 

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CmsDemo.Api.AutoMapperProfile
+namespace CmsDemo.WebApi.AutoMapperProfile
 {
     public class PermissionProfile: Profile
     {
