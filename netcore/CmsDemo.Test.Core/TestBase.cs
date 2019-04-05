@@ -2,6 +2,8 @@ using CmsDemo.Core.CodeGenerator;
 using CmsDemo.Core.Dependency;
 using CmsDemo.Core.Model;
 using CmsDemo.Core.Options;
+using CmsDemo.EntityFrameWorkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -25,22 +27,9 @@ namespace CmsDemo.Test.Core
         private static IServiceProvider BuildServiceForSqlServer()
         {
             var services = new ServiceCollection();
-            services.Configure<CodeGenerateOption>(options =>
-            {
-                options.ConnectionString = "Data Source=.;Initial Catalog=LF_CMS;User ID=sa;Password=1988613;Persist Security Info=True;Max Pool Size=50;Min Pool Size=0;Connection Lifetime=300;";
-                options.DbType = DatabaseType.SqlServer.ToString();//数据库类型是SqlServer,其他数据类型参照枚举DatabaseType
-                options.Author = "liaofeng";//作者名称
-                options.OutputPath = "F:\\Code\\LF_CMS_CodeGenerator";//模板代码生成的路径
-                options.ModelsNamespace = "CmsDemo.Models.Entity";//实体命名空间
-                options.IRepositoryNamespace = "LF_CMS.Repository";//仓储接口命名空间
-                options.RepositoryNamespace = "LF_CMS.Repository";//仓储命名空间
-                options.IServicesNamespace = "CmsDemo.Services";//服务接口命名空间
-                options.ServicesNamespace = "CmsDemo.Services";//服务命名空间
-
-
-            });
-            services.Configure<DbOption>(GetConfiguration().GetSection("DbOpion"));
-            services.AddScoped<CodeGenerator>();
+            services.AddDbContext<CmsDemoDbContext>(options =>
+                    options.UseSqlServer(GetConfiguration().GetConnectionString("DefaultConnectionString"))
+           );
             return IocManager.Instance.Initialize(services);
         }
         /// <summary>

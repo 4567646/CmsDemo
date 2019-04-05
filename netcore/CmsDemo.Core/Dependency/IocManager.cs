@@ -77,10 +77,11 @@ namespace CmsDemo.Core.Dependency
                 .PropertiesAutowired();
 
             //.EnableInterfaceInterceptors();注册基于接口的拦截器（AOP）
-
+            //注册接口类型
             foreach (Type type in arrDependencyType)
             {
-                if (type.IsClass && !type.IsAbstract && !type.BaseType.IsInterface && type.BaseType != typeof(object))
+                //if (type.IsClass && !type.IsAbstract && !type.BaseType.IsInterface && type.BaseType != typeof(object))
+                if (type.IsClass && !type.IsAbstract && type.BaseType.IsInterface && type.BaseType != typeof(object))
                 {
                     builder.RegisterType(type).As(type.BaseType)
                         .InstancePerLifetimeScope()

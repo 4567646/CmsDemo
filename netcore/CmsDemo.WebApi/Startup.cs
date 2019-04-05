@@ -1,32 +1,19 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
 using CmsDemo.WebApi.AutoMapperProfile;
 using CmsDemo.WebApi.Middleware;
 using CmsDemo.Core.Dependency;
 using CmsDemo.Core.Options;
-using CmsDemo.Core.Redis;
-using CmsDemo.Models.Entity;
-using LF_CMS.Repository;
-using CmsDemo.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Controllers;
-using Microsoft.Extensions.Caching.Redis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
+using CmsDemo.EntityFrameWorkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace CmsDemo.WebApi
 {
@@ -43,7 +30,9 @@ namespace CmsDemo.WebApi
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.Configure<DbOption>(Configuration.GetSection("DbOpion"));
-
+            services.AddDbContext<CmsDemoDbContext>(options =>
+                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString"))
+            );
             //注入Redis缓存
             //services.AddSingleton(typeof(IRedisCacheService), new RedisCacheService(new RedisCacheOptions()
             //{

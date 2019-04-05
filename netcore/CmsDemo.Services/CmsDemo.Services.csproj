@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CmsDemo.Core\CmsDemo.Core.csproj" />
+    <ProjectReference Include="..\CmsDemo.EntityFrameWorkCore\CmsDemo.EntityFrameWorkCore.csproj" />
     <ProjectReference Include="..\CmsDemo.Models\CmsDemo.Models.csproj" />
   </ItemGroup>
 
