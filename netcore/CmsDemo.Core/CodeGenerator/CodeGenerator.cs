@@ -1,14 +1,11 @@
-using CmsDemo.Core.DbHelper;
-using CmsDemo.Core.Extensions;
-using CmsDemo.Core.Model;
+using CmsDemo.Core.CodeGenerator.Options;
 using CmsDemo.Core.Options;
-using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
+using System.Runtime.Loader;
 
 namespace CmsDemo.Core.CodeGenerator
 {
@@ -21,88 +18,40 @@ namespace CmsDemo.Core.CodeGenerator
     public class CodeGenerator
     {
         private readonly string Delimiter = "\\";//分隔符，默认为windows下的\\分隔符
-
-        private static CodeGenerateOption _options;
-        public CodeGenerator(IOptions<CodeGenerateOption> options)
+        private readonly CodeGenerateOption _codeGenerateOption;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="codeGenerateOption"></param>
+        /// <param name="isCoveredExsited">是否覆盖已存在的同名文件</param>
+        public CodeGenerator(CodeGenerateOption codeGenerateOption, bool isCoveredExsited = true)
         {
-            if (options == null)
-                throw new ArgumentNullException(nameof(options));
-            _options = options.Value;
-            if (string.IsNullOrWhiteSpace(_options.ConnectionString))
-                throw new ArgumentNullException("未指定数据库连接字符串？");
-            if (string.IsNullOrWhiteSpace(_options.DbType))
-                throw new ArgumentNullException("未指定数据库类型？");
-            var path = AppDomain.CurrentDomain.BaseDirectory;
-            if (string.IsNullOrWhiteSpace(_options.OutputPath))
-                _options.OutputPath = path;
-            var flag = path.IndexOf("/bin");
-            if (flag > 0)
-                Delimiter = "/";//如果可以取到值，修改分割符
+            _codeGenerateOption = codeGenerateOption;
+            GenerateTemplateCodesFromDatabase(isCoveredExsited);
         }
 
         /// <summary>
-        /// 根据数据库连接字符串生成数据库表对应的模板代码
+        /// 
         /// </summary>
-        /// <param name="isCoveredExsited">是否覆盖已存在的同名文件</param>
-        public void GenerateTemplateCodesFromDatabase(bool isCoveredExsited = true)
+        private void GenerateTemplateCodesFromDatabase(bool isCoveredExsited = true)
         {
-            DatabaseType dbType = ConnectionFactory.GetDataBaseType(_options.DbType);
-            List<DbTable> tables = new List<DbTable>();
-            using (var dbConnection = ConnectionFactory.CreateConnection(dbType, _options.ConnectionString))
-            {
-                tables = dbConnection.GetCurrentDatabaseTableList(dbType);
-            }
 
+            var tables = new List<Type>();
+            try
+            {
+                var assembly = AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName(_codeGenerateOption.EntityLib));
+                tables.AddRange(assembly.GetTypes().Where(type => type != null && type.Namespace == _codeGenerateOption.EntityNamespace && !type.IsAbstract));
+            }
+            catch (Exception ex) { throw new Exception(ex.Message); }
             if (tables != null && tables.Any())
             {
                 foreach (var table in tables)
                 {
-                    GenerateEntity(table, isCoveredExsited);
-                    if (table.Columns.Any(c => c.IsPrimaryKey))
-                    {
-                        var pkTypeName = table.Columns.First(m => m.IsPrimaryKey).CSharpType;
-                        GenerateIRepository(table, pkTypeName, isCoveredExsited);
-                        GenerateRepository(table, pkTypeName, isCoveredExsited);
-                    }
-                    GenerateIServices(table, isCoveredExsited);
-                    GenerateServices(table, isCoveredExsited);
+                    GenerateIServices(table.Name, isCoveredExsited);
+                    GenerateServices(table.Name, isCoveredExsited);
 
                 }
             }
-        }
-
-        /// <summary>
-        /// 生成实体代码
-        /// </summary>
-        /// <param name="table">表名</param>
-        /// <param name="isCoveredExsited">是否覆盖</param>
-        private void GenerateEntity(DbTable table, bool isCoveredExsited = true)
-        {
-            var modelPath = _options.OutputPath + Delimiter + "Models"; ;
-            if (!Directory.Exists(modelPath))
-            {
-                Directory.CreateDirectory(modelPath);
-            }
-
-            var fullPath = modelPath + Delimiter + table.TableName + ".cs";
-            if (File.Exists(fullPath) && !isCoveredExsited)
-                return;
-
-            var pkTypeName = table.Columns.First(m => m.IsPrimaryKey).CSharpType;
-            var sb = new StringBuilder();
-            foreach (var column in table.Columns)
-            {
-                var tmp = GenerateEntityProperty(table.TableName, column);
-                sb.AppendLine(tmp);
-            }
-            var content = ReadTemplate("ModelTemplate.txt");
-            content = content.Replace("{GeneratorTime}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
-                .Replace("{ModelsNamespace}", _options.ModelsNamespace)
-                .Replace("{Author}", _options.Author)
-                .Replace("{Comment}", table.TableComment)
-                .Replace("{ModelName}", table.TableName)
-                .Replace("{ModelProperties}", sb.ToString());
-            WriteAndSave(fullPath, content);
         }
 
         /// <summary>
@@ -111,22 +60,22 @@ namespace CmsDemo.Core.CodeGenerator
         /// <param name="modelTypeName"></param>
         /// <param name="keyTypeName"></param>
         /// <param name="ifExsitedCovered"></param>
-        private void GenerateIServices(DbTable table, bool ifExsitedCovered = true)
+        private void GenerateIServices(string tableName, bool ifExsitedCovered = true)
         {
-            var iServicesPath = _options.OutputPath + Delimiter + "IServices";
+            var iServicesPath = _codeGenerateOption.OutputPath + Delimiter + tableName;
             if (!Directory.Exists(iServicesPath))
             {
                 Directory.CreateDirectory(iServicesPath);
             }
-            var fullPath = iServicesPath + Delimiter + "I" + table.TableName + "Service.cs";
+            var fullPath = iServicesPath + Delimiter + "I" + tableName + "Service.cs";
             if (File.Exists(fullPath) && !ifExsitedCovered)
                 return;
             var content = ReadTemplate("IServicesTemplate.txt");
-            content = content.Replace("{Comment}", table.TableComment)
-                .Replace("{Author}", _options.Author)
+            content = content.Replace("{Comment}", "代码工具生成")
+                .Replace("{Author}", _codeGenerateOption.Author)
                 .Replace("{GeneratorTime}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
-                .Replace("{IServicesNamespace}", _options.IServicesNamespace)
-                .Replace("{ModelName}", table.TableName);
+                .Replace("{IServicesNamespace}", _codeGenerateOption.IServicesNamespace)
+                .Replace("{ModelName}", tableName);
             WriteAndSave(fullPath, content);
         }
 
@@ -136,129 +85,23 @@ namespace CmsDemo.Core.CodeGenerator
         /// <param name="modelTypeName"></param>
         /// <param name="keyTypeName"></param>
         /// <param name="ifExsitedCovered"></param>
-        private void GenerateServices(DbTable table, bool ifExsitedCovered = true)
+        private void GenerateServices(string tableName, bool ifExsitedCovered = true)
         {
-            var repositoryPath = _options.OutputPath + Delimiter + "Services";
+            var repositoryPath = _codeGenerateOption.OutputPath + Delimiter + tableName;
             if (!Directory.Exists(repositoryPath))
             {
                 Directory.CreateDirectory(repositoryPath);
             }
-            var fullPath = repositoryPath + Delimiter + table.TableName + "Service.cs";
+            var fullPath = repositoryPath + Delimiter + tableName + "Service.cs";
             if (File.Exists(fullPath) && !ifExsitedCovered)
                 return;
             var content = ReadTemplate("ServiceTemplate.txt");
-            content = content.Replace("{Comment}", table.TableComment)
-                .Replace("{Author}", _options.Author)
+            content = content.Replace("{Comment}", "代码工具生成")
+                .Replace("{Author}", _codeGenerateOption.Author)
                 .Replace("{GeneratorTime}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
-                .Replace("{ServicesNamespace}", _options.ServicesNamespace)
-                .Replace("{ModelName}", table.TableName);
+                .Replace("{ServicesNamespace}", _codeGenerateOption.ServicesNamespace)
+                .Replace("{ModelName}", tableName);
             WriteAndSave(fullPath, content);
-        }
-
-
-        /// <summary>
-        /// 生成IRepository层代码文件
-        /// </summary>
-        /// <param name="modelTypeName"></param>
-        /// <param name="keyTypeName"></param>
-        /// <param name="ifExsitedCovered"></param>
-        private void GenerateIRepository(DbTable table, string keyTypeName, bool ifExsitedCovered = true)
-        {
-            var iRepositoryPath = _options.OutputPath + Delimiter + "IRepository";
-            if (!Directory.Exists(iRepositoryPath))
-            {
-                Directory.CreateDirectory(iRepositoryPath);
-            }
-            var fullPath = iRepositoryPath + Delimiter + "I" + table.TableName + "Repository.cs";
-            if (File.Exists(fullPath) && !ifExsitedCovered)
-                return;
-            var content = ReadTemplate("IRepositoryTemplate.txt");
-            content = content.Replace("{Comment}", table.TableComment)
-                .Replace("{Author}", _options.Author)
-                .Replace("{GeneratorTime}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
-                .Replace("{IRepositoryNamespace}", _options.IRepositoryNamespace)
-                .Replace("{ModelName}", table.TableName)
-                .Replace("{KeyTypeName}", keyTypeName);
-            WriteAndSave(fullPath, content);
-        }
-        /// <summary>
-        /// 生成Repository层代码文件
-        /// </summary>
-        /// <param name="modelTypeName"></param>
-        /// <param name="keyTypeName"></param>
-        /// <param name="ifExsitedCovered"></param>
-        private void GenerateRepository(DbTable table, string keyTypeName, bool ifExsitedCovered = true)
-        {
-            var repositoryPath = _options.OutputPath + Delimiter + "Repository";
-            if (!Directory.Exists(repositoryPath))
-            {
-                Directory.CreateDirectory(repositoryPath);
-            }
-            var fullPath = repositoryPath + Delimiter + table.TableName + "Repository.cs";
-            if (File.Exists(fullPath) && !ifExsitedCovered)
-                return;
-            var content = ReadTemplate("RepositoryTemplate.txt");
-            content = content.Replace("{Comment}", table.TableComment)
-                .Replace("{Author}", _options.Author)
-                .Replace("{GeneratorTime}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
-                .Replace("{RepositoryNamespace}", _options.RepositoryNamespace)
-                .Replace("{ModelName}", table.TableName)
-                .Replace("{KeyTypeName}", keyTypeName);
-            WriteAndSave(fullPath, content);
-        }
-
-
-        /// <summary>
-        /// 生成属性
-        /// </summary>
-        /// <param name="tableName">表名</param>
-        /// <param name="column">列</param>
-        /// <returns></returns>
-        private static string GenerateEntityProperty(string tableName, DbTableColumn column)
-        {
-            var sb = new StringBuilder();
-            if (!string.IsNullOrEmpty(column.Comment))
-            {
-                sb.AppendLine("\t\t/// <summary>");
-                sb.AppendLine("\t\t/// " + column.Comment);
-                sb.AppendLine("\t\t/// </summary>");
-            }
-            if (column.IsPrimaryKey)
-            {
-                sb.AppendLine("\t\t[Key]");
-                //if (column.IsIdentity)
-                //{
-                //    sb.AppendLine("\t\t[DatabaseGenerated(DatabaseGeneratedOption.Identity)]");
-                //}
-                sb.AppendLine($"\t\tpublic {column.CSharpType} Id " + "{get;set;}");
-            }
-            else
-            {
-                if (!column.IsNullable)
-                {
-                    sb.AppendLine("\t\t[Required]");
-                }
-
-                if (column.ColumnLength.HasValue && column.ColumnLength.Value > 0)
-                {
-                    sb.AppendLine($"\t\t[MaxLength({column.ColumnLength.Value})]");
-                }
-                //if (column.IsIdentity)
-                //{
-                //    sb.AppendLine("\t\t[DatabaseGenerated(DatabaseGeneratedOption.Identity)]");
-                //}
-
-                var colType = column.CSharpType;
-                if (colType.ToLower() != "string" && colType.ToLower() != "byte[]" && colType.ToLower() != "object" &&
-                    column.IsNullable)
-                {
-                    colType = colType + "?";
-                }
-
-                sb.AppendLine($"\t\tpublic {colType} {column.ColName} " + "{get;set;}");
-            }
-
-            return sb.ToString();
         }
 
         /// <summary>
@@ -270,7 +113,7 @@ namespace CmsDemo.Core.CodeGenerator
         {
             var currentAssembly = Assembly.GetExecutingAssembly();
             var content = string.Empty;
-            using (var stream = currentAssembly.GetManifestResourceStream($"{currentAssembly.GetName().Name}.CodeTemplate.{templateName}"))
+            using (var stream = currentAssembly.GetManifestResourceStream($"{currentAssembly.GetName().Name}.CodeGenerator.CodeTemplate.{templateName}"))
             {
                 if (stream != null)
                 {

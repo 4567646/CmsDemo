@@ -1,3 +1,4 @@
+using CmsDemo.Core.CodeGenerator;
 using CmsDemo.Core.Dependency;
 using CmsDemo.Core.Repositories;
 using CmsDemo.Core.UOW;
@@ -26,13 +27,24 @@ namespace CmsDemo.Test.Core
         /// <returns></returns>
         private static IServiceProvider BuildServiceForSqlServer()
         {
+            CodeGenerator codeGenerator = new CodeGenerator(new CmsDemo.Core.Options.CodeGenerateOption()
+            {
+                Author = "LF",
+                GeneratorTime = DateTime.Now.ToString(),
+                IServicesNamespace = "CmsDemo.Services",
+                OutputPath = "F:\\CodeGenerator",
+                ServicesNamespace = "CmsDemo.Services",
+                EntityLib= "CmsDemo.Core",
+                EntityNamespace = "CmsDemo.Core.Entities"
+
+            }, true);
             var services = new ServiceCollection();
             services.AddDbContext<CmsDemoDbContext>(options =>
                     options.UseSqlServer(GetConfiguration().GetConnectionString("DefaultConnectionString"))
            );
             services.AddScoped<IUnitOfWork, UnitOfWork<CmsDemoDbContext>>();
-            //services.AddTransient(typeof(IRepository<>), typeof(CmsDemoEfRepository<>));
-            //services.AddTransient(typeof(IRepository<,>), typeof(CmsDemoEfRepository<,>));
+            services.AddTransient(typeof(IRepository<>), typeof(CmsDemoEfRepository<>));
+            services.AddTransient(typeof(IRepository<,>), typeof(CmsDemoEfRepository<,>));
             return IocManager.Instance.Initialize(services);
         }
         /// <summary>

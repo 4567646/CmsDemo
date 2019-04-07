@@ -74,7 +74,7 @@ namespace CmsDemo.Core.Dependency
             //注册接口类型
             //foreach (Type type in arrDependencyType)
             //{
-                
+
             //    if (type.IsClass && !type.IsAbstract && !type.BaseType.IsInterface && type.BaseType != typeof(object))
             //    {
             //        builder.RegisterType(type).As(type.BaseType)
@@ -83,7 +83,6 @@ namespace CmsDemo.Core.Dependency
             //    }
 
             //}
-
 
             //注册ISingletonDependency实现类
             var singletonDependencyType = typeof(ISingletonDependency);

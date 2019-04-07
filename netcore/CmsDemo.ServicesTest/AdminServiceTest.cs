@@ -1,6 +1,6 @@
 using CmsDemo.Core.Entities;
 using CmsDemo.Core.UOW;
-using CmsDemo.Services;
+using CmsDemo.Services.Admin;
 using CmsDemo.Test.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -21,7 +21,7 @@ namespace CmsDemo.ServicesTest
             _unitOfWork = _serviceProvider.GetService<IUnitOfWork>();
         }
 
-        [Theory,Order(1)]
+        [Theory, Order(1)]
         [InlineData("zhangsan", "ÕÅÈý", "123456")]
         //[Ignore("ÔÝÊ±ºöÂÔ")]
         public void CanAddOneAdmin(string userName, string name, string password)
@@ -39,7 +39,7 @@ namespace CmsDemo.ServicesTest
         [Fact, Order(2)]
         public void GetOneAdminInfo()
         {
-            var model = _adminService.GetAdminByUserName("zhangsan");
+            var model = _adminService.GetAdminByUserName("admin");
             Assert.Equal("admin", model.UserName);
         }
 

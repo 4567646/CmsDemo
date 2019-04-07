@@ -1,36 +1,47 @@
 using CmsDemo.Core.Entities;
 using CmsDemo.Core.Repositories;
 using CmsDemo.Core.UOW;
-using CmsDemo.EntityFrameWorkCore;
-using CmsDemo.EntityFrameWorkCore.Repositories;
 
-namespace CmsDemo.Services
+namespace CmsDemo.Services.Admin
 {
-    public class AdminService : CmsDemoEfRepository<Admin>, IAdminService
+    public class AdminService : IAdminService
     {
-        //private readonly IUnitOfWork _unitOfWork;
-        //private readonly IRepository<Admin> _adminRepository;
-        //public AdminService(IRepository<Admin> adminRepository, IUnitOfWork unitOfWork)
-        //{
-        //    _adminRepository = adminRepository;
-        //    _unitOfWork = unitOfWork;
-        //}
-
-        public AdminService(CmsDemoDbContext dbContext) : base(dbContext)
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IRepository<Core.Entities.Admin> _adminRepository;
+        public AdminService(IRepository<Core.Entities.Admin> adminRepository, IUnitOfWork unitOfWork)
         {
-        }
-        public Admin GetAdminById(int id)
-        {
-            return base.Get(id);
-            //return _adminRepository.Get(id);
+            _adminRepository = adminRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public Admin GetAdminByUserName(string userName)
+        public Core.Entities.Admin GetEntityById(int id)
         {
-            return base.FirstOrDefault(m => m.UserName.Equals(userName));
-            //return _adminRepository.FirstOrDefault(md => md.UserName == userName);
-
+            return _adminRepository.Get(id);
         }
 
+        public Core.Entities.Admin GetAdminByUserName(string userName)
+        {
+            return _adminRepository.FirstOrDefault(md => md.UserName == userName);
+
+        }
+        public void Delete(int id)
+        {
+            _adminRepository.Delete(id);
+            _unitOfWork.SaveChanges();
+        }
+
+        public Core.Entities.Admin Insert(Core.Entities.Admin admin)
+        {
+            var model = _adminRepository.Insert(admin);
+            _unitOfWork.SaveChanges();
+            return model;
+        }
+
+        public Core.Entities.Admin Update(Core.Entities.Admin admin)
+        {
+            var model = _adminRepository.Update(admin);
+            _unitOfWork.SaveChanges();
+            return model;
+        }
     }
 }

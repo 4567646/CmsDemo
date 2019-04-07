@@ -11,18 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="CodeGenerator\CodeTemplate\IRepositoryTemplate.txt" />
     <None Remove="CodeGenerator\CodeTemplate\IServicesTemplate.txt" />
-    <None Remove="CodeGenerator\CodeTemplate\ModelTemplate.txt" />
-    <None Remove="CodeGenerator\CodeTemplate\RepositoryTemplate.txt" />
     <None Remove="CodeGenerator\CodeTemplate\ServiceTemplate.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="CodeGenerator\CodeTemplate\IRepositoryTemplate.txt" />
     <EmbeddedResource Include="CodeGenerator\CodeTemplate\IServicesTemplate.txt" />
-    <EmbeddedResource Include="CodeGenerator\CodeTemplate\ModelTemplate.txt" />
-    <EmbeddedResource Include="CodeGenerator\CodeTemplate\RepositoryTemplate.txt" />
     <EmbeddedResource Include="CodeGenerator\CodeTemplate\ServiceTemplate.txt" />
   </ItemGroup>
 

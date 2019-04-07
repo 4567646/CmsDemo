@@ -10,15 +10,35 @@
 *│　接口名称： I{ModelName}Repository                                      
 *└──────────────────────────────────────────────────────────────┘
 */
-using System;
-using System.Collections.Generic;
-using System.Text;
-using LF_CMS.Models.Entity;
-using LF_CMS.Core.Dependency;
+using CmsDemo.Core.Dependency;
 
-namespace {IServicesNamespace}.{ModelName}
+namespace{IServicesNamespace}.{ModelName}
 {
-    public interface I{ModelName}Service: ISingletonDependency
+    public interface I{ModelName}Service : ITransientDependency
     {
+        /// <summary>
+        /// 根据id获取实体
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Core.Entities.{ModelName} GetEntityById(int id);
+        /// <summary>
+        /// 根据id删除实体
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        void Delete(int id);
+        /// <summary>
+        ///插入实体
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Core.Entities.{ModelName} Insert(Core.Entities.{ModelName} entity);
+        /// <summary>
+        ///更新实体
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Core.Entities.{ModelName} Update(Core.Entities.{ModelName} entity);
     }
 }

@@ -1,5 +1,4 @@
-using AutoMapper;
-using CmsDemo.Services;
+using CmsDemo.Services.Admin;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860

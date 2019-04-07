@@ -27,3 +27,45 @@ namespace {ServicesNamespace}.{ModelName}
         }
     }
 }
+
+using CmsDemo.Core.Entities;
+using CmsDemo.Core.Repositories;
+using CmsDemo.Core.UOW;
+
+namespace {ServicesNamespace}.{ModelName}
+{
+    public class {ModelName}Service : I{ModelName}Service
+    {
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IRepository<Core.Entities.{ModelName}> _repository;
+        public AdminService(IRepository<Core.Entities.Admin> repository, IUnitOfWork unitOfWork)
+        {
+            _repository = repository;
+            _unitOfWork = unitOfWork;
+        }
+
+        public Core.Entities.{ModelName} GetEntityById(int id)
+        {
+            return _repository.Get(id);
+        }
+        public void Delete(int id)
+        {
+            _repository.Delete(id);
+            _unitOfWork.SaveChanges();
+        }
+
+        public Core.Entities.{ModelName} Insert(Core.Entities.{ModelName} entity)
+        {
+            var model = _repository.Insert(entity);
+            _unitOfWork.SaveChanges();
+            return model;
+        }
+
+        public Core.Entities.{ModelName} Update(Core.Entities.{ModelName} entity)
+        {
+            var model = _repository.Update(entity);
+            _unitOfWork.SaveChanges();
+            return model;
+        }
+    }
+}

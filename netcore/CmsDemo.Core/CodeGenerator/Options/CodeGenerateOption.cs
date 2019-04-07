@@ -7,7 +7,7 @@ namespace CmsDemo.Core.Options
     /// <summary>
     /// 代码生成选项
     /// </summary>
-    public class CodeGenerateOption : DbOption
+    public class CodeGenerateOption 
     {
 
         /// <summary>
@@ -24,20 +24,13 @@ namespace CmsDemo.Core.Options
         /// 输出路径
         /// </summary>
         public string OutputPath { get; set; }
-
         /// <summary>
+        /// 实体所在程序集
+        /// </summary>
+        public string EntityLib { get; set; }
         /// 实体命名空间
         /// </summary>
-        public string ModelsNamespace { get; set; }
-        /// <summary>
-        /// 仓储接口命名空间
-        /// </summary>
-        public string IRepositoryNamespace { get; set; }
-        /// <summary>
-        /// 仓储命名空间
-        /// </summary>
-        public string RepositoryNamespace { get; set; }
-        /// <summary>
+        public string EntityNamespace { get; set; }
         /// 服务接口命名空间
         /// </summary>
         public string IServicesNamespace { get; set; }
