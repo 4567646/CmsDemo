@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace CmsDemo.Models.Entities
+namespace CmsDemo.Core.Entities
 {
     [Serializable]
     public abstract class Entity : Entity<int>, IEntity

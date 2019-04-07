@@ -1,9 +1,10 @@
 
+using CmsDemo.Core.UOW;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CmsDemo.Models.Entities
+namespace CmsDemo.Core.Entities
 {
     /// <summary>
     /// liaofeng
@@ -11,7 +12,7 @@ namespace CmsDemo.Models.Entities
     /// 用户表
     /// </summary>
     [Table("Admin")]
-    public class Admin : Entity
+    public class Admin : AggregateRoot
     {
 
         /// <summary>

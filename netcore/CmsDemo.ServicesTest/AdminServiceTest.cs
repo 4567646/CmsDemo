@@ -1,16 +1,10 @@
-using CmsDemo.Core.Dependency;
-using CmsDemo.Core.Options;
-using CmsDemo.Models.Entities;
+using CmsDemo.Core.Entities;
+using CmsDemo.Core.UOW;
 using CmsDemo.Services;
 using CmsDemo.Test.Core;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Shouldly;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Xunit;
+using Xunit.Extensions.Ordering;
 
 namespace CmsDemo.ServicesTest
 {
@@ -18,32 +12,36 @@ namespace CmsDemo.ServicesTest
     public class AdminServiceTest : TestBase
     {
         private readonly IAdminService _adminService;
+        protected readonly IUnitOfWork _unitOfWork;
+
         public AdminServiceTest()
         {
             _adminService = _serviceProvider.GetService<IAdminService>();
 
+            _unitOfWork = _serviceProvider.GetService<IUnitOfWork>();
         }
-        [Fact]
-        public void CanAddOneAdmin()
+
+        [Theory,Order(1)]
+        [InlineData("zhangsan", "张三", "123456")]
+        //[Ignore("暂时忽略")]
+        public void CanAddOneAdmin(string userName, string name, string password)
         {
             Admin admin = new Admin()
             {
-                UserName = "zhangsan",
-                Name = "张三",
-                PassWord = "123qwe",
+                UserName = userName,
+                Name = name,
+                PassWord = password,
             };
-            var newAdmin = _adminService.GetAdminByUserName(admin.UserName);
-            if (newAdmin != null)
-                _adminService.Update(newAdmin);
-            else
-            {
-                newAdmin = _adminService.Insert(admin);
-            }
-            Assert.True(admin.Equals(newAdmin));
-            Assert.True(newAdmin.Id > 0);
-            newAdmin.UserName.ShouldBe("zhangsan");
+            var newAdmin = _adminService.Insert(admin);
+            //_unitOfWork.SaveChanges();
+            Assert.NotNull(newAdmin);
         }
-
+        [Fact, Order(2)]
+        public void GetOneAdminInfo()
+        {
+            var model = _adminService.GetAdminByUserName("zhangsan");
+            Assert.Equal("admin", model.UserName);
+        }
 
 
 

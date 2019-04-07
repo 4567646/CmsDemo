@@ -1,10 +1,4 @@
 using AutoMapper;
-using CmsDemo.Models.Dto.Permission;
-using CmsDemo.Models.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CmsDemo.WebApi.AutoMapperProfile
 {
@@ -12,9 +6,9 @@ namespace CmsDemo.WebApi.AutoMapperProfile
     {
         public PermissionProfile()
         {
-            SourceMemberNamingConvention = new LowerUnderscoreNamingConvention();
-            DestinationMemberNamingConvention = new PascalCaseNamingConvention();
-            CreateMap<Permission, PermissionDto>();
+            //SourceMemberNamingConvention = new LowerUnderscoreNamingConvention();
+            //DestinationMemberNamingConvention = new PascalCaseNamingConvention();
+            //CreateMap<Permission, PermissionDto>();
         }
     }
 }

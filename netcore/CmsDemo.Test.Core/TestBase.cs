@@ -1,8 +1,8 @@
-using CmsDemo.Core.CodeGenerator;
 using CmsDemo.Core.Dependency;
-using CmsDemo.Core.Model;
-using CmsDemo.Core.Options;
+using CmsDemo.Core.Repositories;
+using CmsDemo.Core.UOW;
 using CmsDemo.EntityFrameWorkCore;
+using CmsDemo.EntityFrameWorkCore.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +15,7 @@ namespace CmsDemo.Test.Core
     /// </summary>
     public class TestBase
     {
-        protected IServiceProvider _serviceProvider { get; }
+        protected readonly IServiceProvider _serviceProvider;
         public TestBase()
         {
             _serviceProvider = BuildServiceForSqlServer();
@@ -30,6 +30,9 @@ namespace CmsDemo.Test.Core
             services.AddDbContext<CmsDemoDbContext>(options =>
                     options.UseSqlServer(GetConfiguration().GetConnectionString("DefaultConnectionString"))
            );
+            services.AddScoped<IUnitOfWork, UnitOfWork<CmsDemoDbContext>>();
+            //services.AddTransient(typeof(IRepository<>), typeof(CmsDemoEfRepository<>));
+            //services.AddTransient(typeof(IRepository<,>), typeof(CmsDemoEfRepository<,>));
             return IocManager.Instance.Initialize(services);
         }
         /// <summary>

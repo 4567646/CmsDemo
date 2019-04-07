@@ -1,12 +1,10 @@
 using CmsDemo.Core.Dependency;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CmsDemo.Core.Caching
 {
-    public interface IMemoryCacheService : ISingletonDependency
+    public interface IMemoryCacheService : ITransientDependency
     {
         /// <summary>
         /// 验证缓存项是否存在

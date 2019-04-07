@@ -2,19 +2,13 @@ using Autofac;
 using Autofac.Core;
 using Autofac.Core.Lifetime;
 using Autofac.Extensions.DependencyInjection;
-using CmsDemo.Core.Options;
-using CmsDemo.Core.Redis;
-using Microsoft.Extensions.Caching.Redis;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyModel;
-using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
-using System.Text;
 
 namespace CmsDemo.Core.Dependency
 {
@@ -78,16 +72,17 @@ namespace CmsDemo.Core.Dependency
 
             //.EnableInterfaceInterceptors();注册基于接口的拦截器（AOP）
             //注册接口类型
-            foreach (Type type in arrDependencyType)
-            {
-                //if (type.IsClass && !type.IsAbstract && !type.BaseType.IsInterface && type.BaseType != typeof(object))
-                if (type.IsClass && !type.IsAbstract && type.BaseType.IsInterface && type.BaseType != typeof(object))
-                {
-                    builder.RegisterType(type).As(type.BaseType)
-                        .InstancePerLifetimeScope()
-                        .PropertiesAutowired();
-                }
-            }
+            //foreach (Type type in arrDependencyType)
+            //{
+                
+            //    if (type.IsClass && !type.IsAbstract && !type.BaseType.IsInterface && type.BaseType != typeof(object))
+            //    {
+            //        builder.RegisterType(type).As(type.BaseType)
+            //           .InstancePerLifetimeScope()
+            //           .PropertiesAutowired();
+            //    }
+
+            //}
 
 
             //注册ISingletonDependency实现类
@@ -98,16 +93,16 @@ namespace CmsDemo.Core.Dependency
                 .SingleInstance()
                 .PropertiesAutowired();
 
-            foreach (Type type in arrSingletonDependencyType)
-            {
-                if (type.IsClass && !type.IsAbstract && !type.BaseType.IsInterface && type.BaseType != typeof(object))
-                {
-                    builder.RegisterType(type).As(type.BaseType)
-                        .SingleInstance()
-                        .PropertiesAutowired();
-                }
-            }
-            
+            //foreach (Type type in arrSingletonDependencyType)
+            //{
+            //    if (type.IsClass && !type.IsAbstract && !type.BaseType.IsInterface && type.BaseType != typeof(object))
+            //    {
+            //        builder.RegisterType(type).As(type.BaseType)
+            //            .SingleInstance()
+            //            .PropertiesAutowired();
+            //    }
+            //}
+
 
             builder.Populate(services);
             _container = builder.Build();

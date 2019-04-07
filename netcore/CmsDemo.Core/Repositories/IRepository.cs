@@ -1,22 +1,23 @@
-﻿using CmsDemo.Models.Entities;
+﻿using CmsDemo.Core.Entities;
+using CmsDemo.Core.UOW;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace CmsDemo.EntityFrameWorkCore.Repositories
+namespace CmsDemo.Core.Repositories
 {
-    /// <summary>
-    /// This interface is implemented by all repositories to ensure implementation of fixed methods.
-    /// </summary>
-    /// <typeparam name="TEntity">Main Entity type this repository works on</typeparam>
-    /// <typeparam name="TPrimaryKey">Primary key type of the entity</typeparam>
-    public interface IRepository<TEntity, TPrimaryKey> : IRepository where TEntity : class, IEntity<TPrimaryKey>
+    public interface IRepository<TEntity> : IRepository<TEntity, int>
+        where TEntity : class, IEntity, IAggregateRoot
     {
-        #region Select/Get/Query
 
+    }
+
+    public interface IRepository<TEntity, TPrimaryKey>
+        where TEntity : class, IEntity<TPrimaryKey>, IAggregateRoot<TPrimaryKey>
+    {
+        #region Select
         /// <summary>
         /// Used to get a IQueryable that is used to retrieve entities from entire table.
         /// </summary>
@@ -24,12 +25,18 @@ namespace CmsDemo.EntityFrameWorkCore.Repositories
         IQueryable<TEntity> GetAll();
 
         /// <summary>
-        /// Used to get a IQueryable that is used to retrieve entities from entire table.
-        /// One or more 
+        /// Gets an entity with given primary key.
         /// </summary>
-        /// <param name="propertySelectors">A list of include expressions.</param>
-        /// <returns>IQueryable to be used to select entities from database</returns>
-        IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] propertySelectors);
+        /// <param name="id">Primary key of the entity to get</param>
+        /// <returns>Entity</returns>
+        TEntity Get(TPrimaryKey id);
+
+        /// <summary>
+        /// Gets an entity with given primary key.
+        /// </summary>
+        /// <param name="id">Primary key of the entity to get</param>
+        /// <returns>Entity</returns>
+        Task<TEntity> GetAsync(TPrimaryKey id);
 
         /// <summary>
         /// Used to get all entities.
@@ -59,7 +66,6 @@ namespace CmsDemo.EntityFrameWorkCore.Repositories
 
         /// <summary>
         /// Used to run a query over entire entities.
-        /// <see cref="UnitOfWorkAttribute"/> attribute is not always necessary (as opposite to <see cref="GetAll"/>)
         /// if <paramref name="queryMethod"/> finishes IQueryable with ToList, FirstOrDefault etc..
         /// </summary>
         /// <typeparam name="T">Type of return value of this method</typeparam>
@@ -67,33 +73,6 @@ namespace CmsDemo.EntityFrameWorkCore.Repositories
         /// <returns>Query result</returns>
         T Query<T>(Func<IQueryable<TEntity>, T> queryMethod);
 
-        /// <summary>
-        /// Gets an entity with given primary key.
-        /// </summary>
-        /// <param name="id">Primary key of the entity to get</param>
-        /// <returns>Entity</returns>
-        TEntity Get(TPrimaryKey id);
-
-        /// <summary>
-        /// Gets an entity with given primary key.
-        /// </summary>
-        /// <param name="id">Primary key of the entity to get</param>
-        /// <returns>Entity</returns>
-        Task<TEntity> GetAsync(TPrimaryKey id);
-
-        /// <summary>
-        /// Gets exactly one entity with given predicate.
-        /// Throws exception if no entity or more than one entity.
-        /// </summary>
-        /// <param name="predicate">Entity</param>
-        TEntity Single(Expression<Func<TEntity, bool>> predicate);
-
-        /// <summary>
-        /// Gets exactly one entity with given predicate.
-        /// Throws exception if no entity or more than one entity.
-        /// </summary>
-        /// <param name="predicate">Entity</param>
-        Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate);
 
         /// <summary>
         /// Gets an entity with given primary key or null if not found.
@@ -120,13 +99,6 @@ namespace CmsDemo.EntityFrameWorkCore.Repositories
         /// </summary>
         /// <param name="predicate">Predicate to filter entities</param>
         Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
-
-        /// <summary>
-        /// Creates an entity with given primary key without database access.
-        /// </summary>
-        /// <param name="id">Primary key of the entity to load</param>
-        /// <returns>Entity</returns>
-        TEntity Load(TPrimaryKey id);
 
         #endregion
 
@@ -162,39 +134,7 @@ namespace CmsDemo.EntityFrameWorkCore.Repositories
         /// <returns>Id of the entity</returns>
         Task<TPrimaryKey> InsertAndGetIdAsync(TEntity entity);
 
-        /// <summary>
-        /// Inserts or updates given entity depending on Id's value.
-        /// </summary>
-        /// <param name="entity">Entity</param>
-        TEntity InsertOrUpdate(TEntity entity);
-
-        /// <summary>
-        /// Inserts or updates given entity depending on Id's value.
-        /// </summary>
-        /// <param name="entity">Entity</param>
-        Task<TEntity> InsertOrUpdateAsync(TEntity entity);
-
-        /// <summary>
-        /// Inserts or updates given entity depending on Id's value.
-        /// Also returns Id of the entity.
-        /// It may require to save current unit of work
-        /// to be able to retrieve id.
-        /// </summary>
-        /// <param name="entity">Entity</param>
-        /// <returns>Id of the entity</returns>
-        TPrimaryKey InsertOrUpdateAndGetId(TEntity entity);
-
-        /// <summary>
-        /// Inserts or updates given entity depending on Id's value.
-        /// Also returns Id of the entity.
-        /// It may require to save current unit of work
-        /// to be able to retrieve id.
-        /// </summary>
-        /// <param name="entity">Entity</param>
-        /// <returns>Id of the entity</returns>
-        Task<TPrimaryKey> InsertOrUpdateAndGetIdAsync(TEntity entity);
-
-        #endregion
+        #endregion Insert
 
         #region Update
 
@@ -210,23 +150,7 @@ namespace CmsDemo.EntityFrameWorkCore.Repositories
         /// <param name="entity">Entity</param>
         Task<TEntity> UpdateAsync(TEntity entity);
 
-        /// <summary>
-        /// Updates an existing entity.
-        /// </summary>
-        /// <param name="id">Id of the entity</param>
-        /// <param name="updateAction">Action that can be used to change values of the entity</param>
-        /// <returns>Updated entity</returns>
-        TEntity Update(TPrimaryKey id, Action<TEntity> updateAction);
-
-        /// <summary>
-        /// Updates an existing entity.
-        /// </summary>
-        /// <param name="id">Id of the entity</param>
-        /// <param name="updateAction">Action that can be used to change values of the entity</param>
-        /// <returns>Updated entity</returns>
-        Task<TEntity> UpdateAsync(TPrimaryKey id, Func<TEntity, Task> updateAction);
-
-        #endregion
+        #endregion Update
 
         #region Delete
 

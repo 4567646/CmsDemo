@@ -14,6 +14,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using CmsDemo.EntityFrameWorkCore;
 using Microsoft.EntityFrameworkCore;
+using CmsDemo.EntityFrameWorkCore.Repositories;
+using CmsDemo.Core.Repositories;
 
 namespace CmsDemo.WebApi
 {
@@ -46,7 +48,9 @@ namespace CmsDemo.WebApi
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
+            //注入泛型仓储
+            services.AddTransient(typeof(IRepository<>), typeof(CmsDemoEfRepository<>));
+            services.AddTransient(typeof(IRepository<,>), typeof(CmsDemoEfRepository<,>));
             #region AutoMapper
 
             //配置automapper

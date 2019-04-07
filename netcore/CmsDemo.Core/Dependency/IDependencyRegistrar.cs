@@ -6,7 +6,9 @@ using System.Text;
 namespace CmsDemo.Core.Dependency
 {
     /// <summary>
-    /// 依赖注册接口
+    /// 每次请求都创建一个实例（new）
+    /// 默认注入方式
+    /// WAR:继承该接口的服务每次请求都会返回一个唯一的实例
     /// </summary>
     public interface IDependencyRegistrar
     {

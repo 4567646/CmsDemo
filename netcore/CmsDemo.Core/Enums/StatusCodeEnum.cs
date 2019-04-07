@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace CmsDemo.Web.Core.Enums
+namespace CmsDemo.Core.Enums
 {
     public enum StatusCodeEnum
     {

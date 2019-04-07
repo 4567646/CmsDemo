@@ -1,10 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
-using CmsDemo.Models.Dto.Admin;
-using CmsDemo.Models.Entity;
 using CmsDemo.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,22 +21,22 @@ namespace CmsDemo.WebApi.Controllers
         /// <response code="200">返回用户信息</response>
         /// <response code="400">参数有误</response>
         // POST api/<controller>
-        [HttpPost("Login")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        public ActionResult<AdminDto> Login([FromBody]AdminLoginInput adminLoginInput)
-        {
-            var model = _adminService.GetAdminByUserName(adminLoginInput.UserName);
-            if (model == null)
-            {
-                return NotFound("用户名错误");
-            }
-            else if (model.PassWord != adminLoginInput.Password)
-            {
-                return BadRequest("密码错误");
-            }
-            return Ok(Mapper.Map<Admin, AdminDto>(model));
-        }
+        //[HttpPost("Login")]
+        //[ProducesResponseType(200)]
+        //[ProducesResponseType(400)]
+        //public ActionResult<AdminDto> Login([FromBody]AdminLoginInput adminLoginInput)
+        //{
+        //    var model = _adminService.GetAdminByUserName(adminLoginInput.UserName);
+        //    if (model == null)
+        //    {
+        //        return NotFound("用户名错误");
+        //    }
+        //    else if (model.PassWord != adminLoginInput.Password)
+        //    {
+        //        return BadRequest("密码错误");
+        //    }
+        //    return Ok(Mapper.Map<Admin, AdminDto>(model));
+        //}
 
 
     }
