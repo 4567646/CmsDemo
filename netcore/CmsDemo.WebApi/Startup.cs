@@ -31,7 +31,6 @@ namespace CmsDemo.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.Configure<DbOption>(Configuration.GetSection("DbOpion"));
             services.AddDbContext<CmsDemoDbContext>(options =>
                      options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString"))
             );
